@@ -1,10 +1,8 @@
-const botconfig = require('./botconfig.json')
+const botconfig = require('../botconfig.json')
 const Discord = require('discord.js')
 const bot = new Discord.Client({ disableEveryone: true })
-const glb = require('./global.js')
-const https = require('https')
-const API_KEY = "RGAPI-29d66403-100f-4289-a13a-72e761aa99db";
 const lolApi = require('./API_Request.js')
+require('dotenv').config()
 
 bot.on('ready', async () => {
     console.log(`${bot.user.username} is online!`)
@@ -70,32 +68,6 @@ bot.on("message", async (message) => {
         })
     }
 
-    if (cmd === `${prefix}report`) {
-
-        let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
-        if (!rUser) return message.channel.send("Não foi possível encontrar o usuário.")
-
-        let reason = args.join(" ").slice(22)
-
-        let reportembed = new Discord.RichEmbed()
-            .setDescription("REPORTS!")
-            .setColor("#8e44ad")
-            .addField("Reported user:", `${rUser} with ID: ${rUser.id}`)
-            .addField("Reported by:", `${message.author} with ID: ${message.author.id}`)
-            .addField("Channel: ", message.channel)
-            .addField("Time: ", message.createdAt)
-            .addField("Reason: ", reason)
-
-        let reportschannel = message.guild.channels.find(`name`, "reports")
-        if (!reportschannel) return message.channel.send("Não foi possível encontrar o canal!")
-
-        message.delete().catch(O_o => { })
-        reportschannel.send(reportembed)
-
-        return
-
-    }
-
     if (cmd === `${prefix}serverinfo`) {
 
         let sicon = message.guild.iconURL
@@ -129,4 +101,4 @@ bot.on("message", async (message) => {
     }
 })
 
-bot.login(botconfig.token)
+bot.login(process.env.BOT_API_KEY)

@@ -1,5 +1,6 @@
 const https = require('https')
-const API_KEY = "RGAPI-29d66403-100f-4289-a13a-72e761aa99db";
+require('dotenv').config()
+const API_KEY = process.env.LOL_API_KEY
 
  function getSummonerInfo(username, callback) {
         console.log('ok')

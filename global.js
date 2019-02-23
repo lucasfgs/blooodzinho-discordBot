@@ -1,1 +1,0 @@
-var Value, summonerInfo
