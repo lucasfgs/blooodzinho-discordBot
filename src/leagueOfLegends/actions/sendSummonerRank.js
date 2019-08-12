@@ -1,9 +1,10 @@
 const Discord = require("discord.js");
 
-const lolApi = require("../api");
+const { getSummonerRank } = require("../api");
+const getTierImage = require("../utils/getTierImage");
 
 const sendSummonerRank = async (username, message) => {
-  let summonerRank = await lolApi.getSummonerRank(username);
+  let summonerRank = await getSummonerRank(username);
   if (summonerRank) {
     let wins = summonerRank[0].wins;
     let losses = summonerRank[0].losses;
@@ -23,43 +24,7 @@ const sendSummonerRank = async (username, message) => {
         true
       )
       .addField("Win Rate:", `${winrate}%`);
-
-    if (tier === "IRON")
-      lolembed.setThumbnail(
-        "https://www.lol-smurfs.com/blog/wp-content/uploads/2018/12/Iron_Emblem-150x150.png"
-      );
-    else if (tier === "BRONZE")
-      lolembed.setThumbnail(
-        "https://www.lol-smurfs.com/blog/wp-content/uploads/2018/12/Bronze_Emblem-150x150.png"
-      );
-    else if (tier === "SILVER")
-      lolembed.setThumbnail(
-        "https://www.lol-smurfs.com/blog/wp-content/uploads/2018/12/Silver_Emblem-150x150.png"
-      );
-    else if (tier === "GOLD")
-      lolembed.setThumbnail(
-        "https://www.lol-smurfs.com/blog/wp-content/uploads/2018/12/Gold_Emblem-150x150.png"
-      );
-    else if (tier === "PLATINUM")
-      lolembed.setThumbnail(
-        "https://www.lol-smurfs.com/blog/wp-content/uploads/2018/12/Platinum_Emblem-150x150.png"
-      );
-    else if (tier === "DIAMOND")
-      lolembed.setThumbnail(
-        "https://www.lol-smurfs.com/blog/wp-content/uploads/2018/12/Diamond_Emblem-150x150.png"
-      );
-    else if (tier === "MASTER")
-      lolembed.setThumbnail(
-        "https://www.lol-smurfs.com/blog/wp-content/uploads/2018/12/Master_Emblem-150x150.png"
-      );
-    else if (tier === "GRANDMASTER")
-      lolembed.setThumbnail(
-        "https://www.lol-smurfs.com/blog/wp-content/uploads/2018/12/Grandmaster_Emblem-150x150.png"
-      );
-    else if (tier === "CHALLENGER")
-      lolembed.setThumbnail(
-        "https://www.lol-smurfs.com/blog/wp-content/uploads/2018/12/Challenger_Emblem-150x150.png"
-      );
+    lolembed.setThumbnail(getTierImage(tier));
 
     message.channel.send(lolembed);
   } else {

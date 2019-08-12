@@ -23,5 +23,21 @@ const getSummonerRank = async username => {
     return false;
   }
 };
+const getTopPlayers = async (tier = "CHALLENGER", division = "I") => {
+  try {
+    const { data } = await api.get(
+      `lol/league-exp/v4/entries/RANKED_SOLO_5x5/${tier}/${division}?page=1&api_key=${API_KEY}`
+    );
+    const firstPlayers = data.slice(0, 10);
+    return firstPlayers;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
 
-module.exports = { getSummonerInfo, getSummonerRank };
+module.exports = {
+  getSummonerInfo,
+  getSummonerRank,
+  getTopPlayers
+};
