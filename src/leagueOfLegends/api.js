@@ -1,5 +1,5 @@
 require("dotenv").config();
-const api = require("./services/api");
+const api = require("../services/api");
 const API_KEY = process.env.LOL_API_KEY;
 
 const getSummonerInfo = async username => {
