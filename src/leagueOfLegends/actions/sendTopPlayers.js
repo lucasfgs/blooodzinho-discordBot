@@ -16,7 +16,6 @@ const sendTopPlayers = async (message, tier = "CHALLENGER", division = "I") => {
       .setColor("#f39c12")
       .setThumbnail(getTierImage(upperCaseTier));
 
-    console.log(players);
     players.map(player => {
       let wins = player.wins;
       let losses = player.losses;
