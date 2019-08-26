@@ -1,3 +1,13 @@
 {
-  "prefix": "!"
+  "config": {
+    "prefix": "!"
+  },
+  "commands": {
+    "help": "Mostra todos os comandos do bot.",
+    "lol": "Mostra o level do jogardor.",
+    "rank": "Mostra o elo/win rate do jogador.",
+    "top": "Mostra os melhores players de determinado elo.",
+    "serverinfo": "Informações do servidor.",
+    "botinfo": "Informações do bot."
+  }
 }

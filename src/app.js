@@ -7,6 +7,7 @@ require("dotenv").config();
 // SERVER
 const sendServerInfo = require("./server/actions/sendServerInfo");
 const sendBotInfo = require("./server/actions/sendBotInfo");
+const sendHelp = require("./server/actions/sendHelp");
 
 // LOL
 const sendSummonerInfo = require("./leagueOfLegends/actions/sendSummonerInfo");
@@ -15,14 +16,14 @@ const sendTopPlayers = require("./leagueOfLegends/actions/sendTopPlayers");
 
 bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
-  bot.user.setActivity("seu cu!", { type: "WATCHING" });
+  bot.user.setActivity("!help", { type: "PLAYING" });
 });
 
 bot.on("message", async message => {
   if (message.author.bot) return;
   if (message.channel.type === "dm") return;
 
-  let prefix = botconfig.prefix;
+  let { prefix } = botconfig.config;
   let messageArray = message.content.split(" ");
   let cmd = messageArray[0];
   let args = messageArray.slice(1);
@@ -49,6 +50,9 @@ bot.on("message", async message => {
 
   if (cmd === `${prefix}botinfo`) {
     sendBotInfo(message, bot);
+  }
+  if (cmd === `${prefix}help`) {
+    sendHelp(message);
   }
 });
 
